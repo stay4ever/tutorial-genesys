@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ meta_title or title }} | The Pulse</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ keywords | join(', ') }}">
+    <meta name="author" content="{{ author }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ meta_title or title }}">
+    <meta property="og:description" content="{{ meta_description }}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="The Pulse — AI Evolution">
+    <meta property="og:url" content="https://ai-evolution.com.au/tutorials/{{ slug }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ meta_title or title }}">
+    <meta name="twitter:description" content="{{ meta_description }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "{{ title }}",
+        "description": "{{ meta_description }}",
+        "author": {
+            "@type": "Organization",
+            "name": "{{ author }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "The Pulse — AI Evolution",
+            "url": "https://ai-evolution.com.au"
+        },
+        "datePublished": "{{ created_at }}",
+        "proficiencyLevel": "{{ difficulty }}",
+        "timeRequired": "PT{{ estimated_reading_minutes }}M"
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>{{ css }}</style>
+</head>
+<body>
+    <!-- HERO -->
+    <div class="tutorial-hero">
+        {{ hero_svg }}
+        <div class="tutorial-hero-overlay">
+            <h1>{{ title }}</h1>
+            {% if subtitle %}<p class="subtitle">{{ subtitle }}</p>{% endif %}
+        </div>
+    </div>
+
+    <div class="tutorial-container">
+        <!-- META BAR -->
+        <div class="tutorial-meta">
+            <span class="meta-badge category">{{ category }}</span>
+            <span class="meta-badge difficulty-{{ difficulty }}">{{ difficulty }}</span>
+            <span class="meta-text">{{ estimated_reading_minutes }} min read</span>
+            <span class="meta-text">By {{ author }}</span>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        {% if toc_items %}
+        <nav class="tutorial-toc">
+            <h2>In This Tutorial</h2>
+            <ol>
+                {% for item in toc_items %}
+                <li><a href="#{{ item.anchor }}">{{ item.heading }}</a></li>
+                {% endfor %}
+            </ol>
+        </nav>
+        {% endif %}
+
+        <!-- CONCEPT DIAGRAM -->
+        {% if concept_diagram %}
+        <div class="concept-diagram">
+            {{ concept_diagram }}
+        </div>
+        {% endif %}
+
+        <!-- MAIN CONTENT -->
+        <div class="tutorial-content">
+            {{ content_html }}
+        </div>
+
+        <!-- FOOTER -->
+        <div class="tutorial-footer">
+            <p>Published on <a href="https://ai-evolution.com.au">The Pulse — AI Evolution</a></p>
+            <p>Australia's curated AI intelligence platform</p>
+        </div>
+    </div>
+</body>
+</html>
