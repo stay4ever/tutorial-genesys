@@ -10,8 +10,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore", env_ignore_empty=True)
 
-    # LLM
-    anthropic_api_key: str = ""
+    # LLM — routed through the local `claude` CLI (Claude.ai subscription usage,
+    # not Anthropic API credits). Requires `claude login` to have been run.
     writer_model: str = "claude-opus-4-6"
     classifier_model: str = "claude-haiku-4-5-20251001"
 

@@ -5,10 +5,9 @@ from __future__ import annotations
 import logging
 import re
 
-import anthropic
-
 from tutorial_genesys.config.settings import get_settings
 from tutorial_genesys.config.prompts import WRITER_PROMPT
+from tutorial_genesys.integration.claude_cli_client import ClaudeCLIClient
 from tutorial_genesys.models.research_brief import ResearchBrief
 from tutorial_genesys.models.tutorial_content import TutorialContent, TutorialSection
 
@@ -20,7 +19,7 @@ class Writer:
 
     def __init__(self) -> None:
         settings = get_settings()
-        self._client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+        self._client = ClaudeCLIClient()
         self._model = settings.writer_model
         self._min_words = settings.min_tutorial_words
         self._max_words = settings.max_tutorial_words

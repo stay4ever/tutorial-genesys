@@ -4,10 +4,9 @@ from __future__ import annotations
 import json
 import logging
 
-import anthropic
-
 from tutorial_genesys.config.settings import get_settings
 from tutorial_genesys.config.prompts import REVIEWER_PROMPT
+from tutorial_genesys.integration.claude_cli_client import ClaudeCLIClient
 from tutorial_genesys.models.tutorial_content import TutorialContent
 from tutorial_genesys.models.review_report import ReviewReport, ReviewIssue
 
@@ -19,7 +18,7 @@ class Reviewer:
 
     def __init__(self) -> None:
         settings = get_settings()
-        self._client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+        self._client = ClaudeCLIClient()
         self._model = settings.writer_model
 
     def review(self, tutorial: TutorialContent) -> ReviewReport:
